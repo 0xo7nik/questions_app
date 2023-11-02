@@ -37,14 +37,20 @@ def check_answer():
             correct_answer = True
     if correct_answer:
         answer12.setText('Правильно!')
+        answer12.setStyleSheet('color: rgb(17, 186, 53);'
+                                        'font: bold italic 20pt "Arial";'
+                                        )
     else:
         answer12.setText('Неправильно!')
+        answer12.setStyleSheet('color: rgb(168, 10, 29);'
+                                        'font: bold italic 20pt "Arial";'
+                                        )
     dlg = QDialog()
     dlg.resize(200, 100)
     dlg.setWindowTitle("Ответ")
     dlg.setLayout(v)
     v.addWidget(answer12, alignment=Qt.AlignCenter)
-    dlg.exec()
+    dlg.exec_()
    
 app = QApplication([])
 mw = QWidget()
