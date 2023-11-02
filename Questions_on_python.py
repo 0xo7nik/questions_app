@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QGroupBox, QRadioButton, QDialog
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont
 from random import randint, shuffle
 from time import sleep
@@ -10,7 +10,7 @@ questions = {
     'В каком году был создан язык программирования Python?': ('1990', '1984', '2007', '2016'),
     'Кто был основателем языка Python?': ('Гвидо ван Россум', 'Киану Ривз', 'Сунь-цзы', 'Андрей Черников'),
     'Что такое GitHub?': ('Сайт', 'Игра', 'Мессенджер', 'Соц. сеть'),
-    'Что такое Visual Studio Code (VSC)?': ('Редактор кода', 'Блокнот', 'Приложение', 'Игра'),
+    'Что такое Visual Studio Code?': ('Редактор кода', 'Блокнот', 'Приложение', 'Игра'),
     'Что такое диспетчер задач в Windows?': ('Менеджер программ', 'Вирус', 'Редактор кода', 'Антивирус')
 }
 def set_new_questions():
@@ -50,8 +50,9 @@ def check_answer():
     dlg.setWindowTitle("Ответ")
     dlg.setLayout(v)
     v.addWidget(answer12, alignment=Qt.AlignCenter)
+    h.addWidget(dlg_btn, alignment=Qt.AlignBottom)
     dlg.exec_()
-   
+
 app = QApplication([])
 mw = QWidget()
 mw.setWindowTitle('Вопросы')
@@ -60,12 +61,16 @@ mw.resize(700, 500)
 vert_main = QVBoxLayout()
 question = QLabel('Вопрос!')
 question.setFont(QFont('Arial', 20))
+
 group = QGroupBox('Варианты ответов')
 group.setFont(QFont('Arial', 14))
+
 v = QVBoxLayout()
+h = QHBoxLayout()
 h_group = QHBoxLayout()
 l_v_group = QVBoxLayout()
 r_v_group = QVBoxLayout()
+
 buttons = [
     QRadioButton('Ответ 1'),
     QRadioButton('Ответ 2'),
@@ -85,6 +90,9 @@ group.setLayout(h_group)
 button = QPushButton('Ответить!')
 button.clicked.connect(check_answer)
 button.setFont(QFont('Arial', 12))
+
+dlg_btn = QDialogButtonBox()
+dlg_btn.setFont(QFont('Arial', 12))
 
 vert_main.addWidget(question, alignment=Qt.AlignCenter)
 vert_main.addWidget(group)
