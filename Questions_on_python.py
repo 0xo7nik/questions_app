@@ -1,18 +1,14 @@
-import sys
+import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont
 from random import randint, shuffle
 from time import sleep
 
+questions = {}
+with open('./github_proj/b.json', 'r', encoding='utf-8') as file:
+    questions = json.load(file)
 
-questions = {
-    'В каком году был создан язык программирования Python?': ('1990', '1984', '2007', '2016'),
-    'Кто был основателем языка Python?': ('Гвидо ван Россум', 'Киану Ривз', 'Сунь-цзы', 'Андрей Черников'),
-    'Что такое GitHub?': ('Сайт', 'Игра', 'Мессенджер', 'Соц. сеть'),
-    'Что такое Visual Studio Code?': ('Редактор кода', 'Блокнот', 'Приложение', 'Игра'),
-    'Что такое диспетчер задач в Windows?': ('Менеджер программ', 'Вирус', 'Редактор кода', 'Антивирус')
-}
 def set_new_questions():
     global questions, buttons, question
     headers = list(questions.keys())
@@ -27,6 +23,7 @@ def set_new_questions():
             buttons[i].isTrue = True
         else:
             buttons[i].isTrue = False
+            
 def check_answer():
     global buttons, question
     answer12 = QLabel()
@@ -45,12 +42,14 @@ def check_answer():
         answer12.setStyleSheet('color: rgb(168, 10, 29);'
                                         'font: bold italic 20pt "Arial";'
                                         )
+    v = QVBoxLayout()
+    btn_dlg = QPushButton('Следующий вопрос')              
     dlg = QDialog()
     dlg.resize(200, 100)
     dlg.setWindowTitle("Ответ")
     dlg.setLayout(v)
     v.addWidget(answer12, alignment=Qt.AlignCenter)
-    h.addWidget(dlg_btn, alignment=Qt.AlignBottom)
+    v.addWidget(btn_dlg, alignment=Qt.AlignBottom)
     dlg.exec_()
 
 app = QApplication([])
@@ -65,7 +64,6 @@ question.setFont(QFont('Arial', 20))
 group = QGroupBox('Варианты ответов')
 group.setFont(QFont('Arial', 14))
 
-v = QVBoxLayout()
 h = QHBoxLayout()
 h_group = QHBoxLayout()
 l_v_group = QVBoxLayout()
